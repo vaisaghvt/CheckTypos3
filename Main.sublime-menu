@@ -1,0 +1,10 @@
+[
+    {
+        "id": "tools",
+        "children":
+        [
+            {"caption": "Highlight Mistakes", "command": "highlight_mistakes"}
+
+        ]
+    }
+]
