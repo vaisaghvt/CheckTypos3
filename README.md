@@ -1,6 +1,7 @@
-CheckTypos
-==========
+CheckTypos 3
+============
 
+This is the Sublime Text 3 version of CheckTypos Plugin.
 Plugin to highlight some standard mistakes and typos in latex
 files. This plugin does not check for spelling mistakes. Only
 works on latex files.
