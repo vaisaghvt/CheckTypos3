@@ -391,8 +391,8 @@ class BackgroundLinter(sublime_plugin.EventListener):
     #     if view.is_scratch():
     #         return
 
-    def on_selection_modified(self, view):
-        # pass
-        view.run_command("highlight_mistakes", {"full_test":True})
-        # view.run_command("highlight_mistakes")
+    # def on_selection_modified(self, view):
+    #     # pass
+    #     view.run_command("highlight_mistakes", {"full_test":True})
+    #     # view.run_command("highlight_mistakes")
 
