@@ -75,7 +75,7 @@ def isInMail(phrase):
 def isAcronym(phrase):
     '''Returns a true if the match is an acronym'''
 #    print "testing if", phrase, "is an acronym"
-    if phrase.rfind('i.e.') != -1 or phrase.rfind('e.g.') != -1 or phrase.rfind('etc.') != -1:
+    if phrase.rfind('i.e.') != -1 or phrase.rfind('e.g.') != -1 or phrase.rfind('etc.') != -1 or phrase.rfind('viz.') != -1 or phrase.rfind('al.') != -1:
         return True
     else:
         return False
@@ -93,7 +93,7 @@ def afterAcronym(match, completeBuffer):
                 stringAsList.insert(0, completeBuffer[i])
                 i = i-1
             string = ''.join(stringAsList)
-            if string.rfind('i.e.') != -1 or string.rfind('e.g.') != -1:
+            if string.rfind('i.e.') != -1 or string.rfind('e.g.') != -1 or string.rfind('etc.') != -1 or string.rfind('viz.') != -1 or string.rfind('al.') != -1:
         #        print "returning true"
                 return True
     return False
@@ -191,7 +191,7 @@ patterns = (
     {"regex": r'((?<=(\\subsection\{))|(?<=(\\subsubsection\{))|(?<=(\\paragraph\{))|(?<=(\\subparagraph\{)))(([^A-Z](.*?))|([A-Z](.*?)[A-Z](.*?)))(?=\})',
      "description": 'Sentence Case For Subsections And Below',
      "tags": 'c'},
-    {"regex": r'((?<=(\\section\{))|(?<=(\\chapter\{)))((|(.*) )[a-z].*)(?=\})',
+    {"regex": r'((?<=(\\section\{))|(?<=(\\chapter\{)))((|(.*) )[a-z][a-z][a-z][a-z].*)(?=\})',
      "description": 'Title Case For Sections And Chapters',
      "tags": 'c'},
     {"regex": r'( +)([\.,;:])',
@@ -257,7 +257,7 @@ class HighlightMistakesCommand(sublime_plugin.TextCommand):
     def run(self, edit, *args, **kwargs):
         if syntax_name(self.view) == "LaTeX":
             # if self.view.id not in affectedRegions or last_selected_lineno(self.view) in affectedRegions[self.view.id]:
-            if not args or "full_test" not in args:
+            if not kwargs or "full_test" not in kwargs or kwargs["full_test"]:
 
                 # self.view.erase_status(self.myKey)
                 self.viewMatches = []
@@ -267,8 +267,10 @@ class HighlightMistakesCommand(sublime_plugin.TextCommand):
                 # print(self.completeBuffer)
                 self.mainThread = threading.Thread(target=self.processBuffer)
                 self.mainThread.start()
+
                 # self.processBuffer([completeBuffer])
             else:
+
                 self.displayCurrentError()
                 self.higlightAllRegions()
 
@@ -391,8 +393,8 @@ class BackgroundLinter(sublime_plugin.EventListener):
     #     if view.is_scratch():
     #         return
 
-    # def on_selection_modified(self, view):
-    #     # pass
-    #     view.run_command("highlight_mistakes", {"full_test":True})
+    def on_selection_modified(self, view):
+        # pass
+        view.run_command("highlight_mistakes", {"full_test":False})
     #     # view.run_command("highlight_mistakes")
 
